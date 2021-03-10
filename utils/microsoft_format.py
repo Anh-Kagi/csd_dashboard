@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
-from xlwt import Workbook
+import openpyxl
 import io
-from xlrd import XLRDError
 import pandas as pd
 import unicodedata
 import re
@@ -71,7 +70,7 @@ class ExcelFormat(BaseFormat):
         self.basename = os.path.basename(file[:file.find('.')])
         try:
             df = pd.read_excel(file, sheet_name=sheet_name, skiprows=skiprows, dtype=dtype, usecols=usecols)
-        except XLRDError:
+        except ValueError:
             df = self._excel_decode(file, sheet_name, skiprows, dtype, usecols)
         super(ExcelFormat, self).__init__(df, columns)
 
@@ -101,23 +100,22 @@ class ExcelFormat(BaseFormat):
             Temporary Excel file in the 'tmp' directory
         """
         try:
-            file1 = io.open(file, 'r', encoding='latin-1')
+            file1 = io.open(file, 'r', encoding='latin')
             data = file1.readlines()
 
-            # Creating a workbook object
-            xldoc = Workbook()
-            # Adding a sheet to the workbook object
-            sheet = xldoc.add_sheet("Sheet1", cell_overwrite_ok=True)
-            # Iterating and saving the data to sheet
-            for i, row in enumerate(data):
-                # Two things are done here
-                # Removeing the '\n' which comes while reading the file using io.open
-                # Getting the values after splitting using '\t'
-                for j, val in enumerate(row.replace('\n', '').split('\t')):
-                    sheet.write(i, j, val)
+            # Creating a workbook object with openpyxl
+            wb = openpyxl.Workbook()
 
-            # Saving the file as an excel file
-            xldoc.save('/tmp/{}_reformat.xls'.format(self.basename))
+            # Get active worksheet/tab
+            ws = wb.active
+            ws.title = 'Sheet1'
+
+            for row_num, row in enumerate(data, 1):
+                for col_num, cell_value in enumerate(row.replace('\n', '').split('\t'), 1):
+                    cell = ws.cell(row=row_num, column=col_num)
+                    cell.value = cell_value
+            wb.save('/tmp/{}_reformat.xls'.format(self.basename))
+
             df = pd.read_excel("/tmp/{}_reformat.xls".format(self.basename), sheet_name="Sheet1", skiprows=skiprows,
                                dtype=dtype, usecols=usecols)
             dataframe = df.drop(df[(df['N° de dossier'].isnull()) | (df['N° de dossier'] == 'N° de dossier')].index)
