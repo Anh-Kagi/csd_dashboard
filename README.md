@@ -8,12 +8,12 @@ Dashboard create with Django 3.1.1 or 3.x for the CSD service of the company Fau
 
 ### Dependencies
 
-- [Python 3.6 or more](https://www.python.org/) is required
+- [Python 3.7 or more](https://www.python.org/) is required
 - [PostgreSQL](https://www.postgresql.org/download/)
 
 ### Installing the Linux development environment
 
-Install Python 3.6 or more, PostgreSQL and linux packages useful for the
+Install Python 3.7 or more, PostgreSQL and linux packages useful for the
 proper functioning of the application.
 
 ```bash
