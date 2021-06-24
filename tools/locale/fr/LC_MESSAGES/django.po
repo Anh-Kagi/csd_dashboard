@@ -1,0 +1,156 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-20 14:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: tools/forms.py:103
+msgid "Username not found."
+msgstr ""
+
+#: tools/models.py:20
+msgid "CALIBRE file exists !"
+msgstr "Le fichier CALIBRE existe !"
+
+#: tools/templates/tools/modal/suptech_create.html:125
+#: tools/templates/tools/modal/tag_xelon.html:37
+#: tools/templates/tools/modal/thermal_delete.html:20
+#: tools/templates/tools/suptech/suptech_update.html:87
+msgid "Cancel"
+msgstr "Annuler"
+
+#: tools/templates/tools/modal/suptech_create.html:126
+#, fuzzy
+#| msgid "created at"
+msgid "Create"
+msgstr "créé le"
+
+#: tools/templates/tools/modal/tag_xelon.html:38
+#: tools/templates/tools/soft_form.html:55
+msgid "Submit"
+msgstr "Soumettre"
+
+#: tools/templates/tools/modal/thermal_delete.html:7
+msgid "Delete Thermal chamber input"
+msgstr "Suppression d'une entrée"
+
+#: tools/templates/tools/modal/thermal_delete.html:14
+msgid "Are you sure you want to delete input of"
+msgstr "Voulez-vous vraiment supprimer l'entrée de"
+
+#: tools/templates/tools/modal/thermal_delete.html:15
+msgid "created at"
+msgstr "créé le"
+
+#: tools/templates/tools/modal/thermal_delete.html:21
+msgid "Delete"
+msgstr "Supprimer"
+
+#: tools/templates/tools/soft_form.html:7
+msgid "JIG Name"
+msgstr "Nom du JIG"
+
+#: tools/templates/tools/soft_form.html:14
+msgid "Version"
+msgstr "Version"
+
+#: tools/templates/tools/soft_form.html:23
+msgid "Link download"
+msgstr "Lien de téléchargement"
+
+#: tools/templates/tools/soft_form.html:38
+msgid "Validation date"
+msgstr "Date de validation"
+
+#: tools/templates/tools/suptech/suptech_update.html:88
+msgid "Update"
+msgstr ""
+
+#: tools/templates/tools/thermal_chamber.html:35
+msgid "Add"
+msgstr "Ajouter"
+
+#: tools/templates/tools/thermal_chamber.html:40
+msgid "Refresh"
+msgstr "Actualiser"
+
+#: tools/templates/tools/thermal_chamber_fullscreen.html:12
+msgid "Thermal Chamber Temperature"
+msgstr "Température Chambre Thermique"
+
+#: tools/tests/tests_tools_views.py:69 tools/views.py:87
+msgid "You do not have the required permissions"
+msgstr "Vous ne disposez pas des autorisations requises"
+
+#: tools/views.py:25
+msgid "Software list"
+msgstr "Liste logiciel"
+
+#: tools/views.py:33
+msgid "Tools"
+msgstr "Outils"
+
+#: tools/views.py:34
+msgid "Tag Xelon list"
+msgstr "Liste Tag Xelon"
+
+#: tools/views.py:43
+msgid "Software integration"
+msgstr "Intégration de logiciels"
+
+#: tools/views.py:50
+msgid "Added successfully!"
+msgstr "Ajouté avec succès!"
+
+#: tools/views.py:65
+#, python-brace-format
+msgid "Modification data Software for JIG: {jig}"
+msgstr "Logiciel de données de modification pour JIG : {jig}"
+
+#: tools/views.py:69 tools/views.py:85
+msgid "Modification done successfully!"
+msgstr "Modification effectuée avec succès!"
+
+#: tools/views.py:75 tools/views.py:108
+msgid "Thermal chamber"
+msgstr "Chambre thermique"
+
+#: tools/views.py:76
+msgid "Use of the thermal chamber"
+msgstr "Utilisation de la chambre thermique"
+
+#: tools/views.py:109
+msgid "Thermal chamber list"
+msgstr "liste Chambre thermique"
+
+#: tools/views.py:152
+msgid "Success: Input was deleted."
+msgstr "Succès: l'entrée a été supprimée."
+
+#: tools/views.py:164 tools/views.py:208
+msgid "Success: The email has been sent."
+msgstr ""
+
+#: tools/views.py:177
+#, fuzzy
+#| msgid "Software list"
+msgid "Support Tech list"
+msgstr "Liste logiciel"
+
+#: tools/views.py:203
+msgid "Support Tech Response"
+msgstr ""

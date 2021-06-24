@@ -1,0 +1,54 @@
+{% load i18n %}
+
+<div class="row">
+    <section class="col-sm-6">
+        <table class="table table-secondary table-sm">
+            <thead>
+            <tr>
+                <th colspan="2" class="text-primary">Info XELON :</th>
+            </tr>
+            </thead>
+            <tbody class="table-borderless">
+            <tr>
+                <td class="text-dark td-ihm">Numéro de dossier</td>
+                <td id="xelon">{{ xelon.numero_de_dossier }}<a href="#" title="copie" onclick="textCopy('{{ xelon.numero_de_dossier }}')"><i class="fas fa-copy ml-2"></i></a></td>
+            </tr>
+            <tr>
+                <td class="text-dark td-ihm">V.I.N.</td>
+                <td>{{ xelon.vin }}<a href="#" title="copie" onclick="textCopy('{{ xelon.vin }}')"><i class="fas fa-copy ml-2"></i></a></td>
+            </tr>
+            <tr>
+                <td class="text-dark td-ihm">Modèle produit</td>
+                <td>{{ xelon.modele_produit }}</td>
+            </tr>
+            <tr>
+                <td class="text-dark td-ihm">Modèle véhicule</td>
+                <td>{{ xelon.modele_vehicule }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        {% if corvet.prods.btel %}
+            {% include 'psa/format/multimedia_table_format.html' with object=corvet.prods.btel %}
+        {% else %}
+            {% include 'psa/format/multimedia_table_format.html' with object=corvet.prods.radio %}
+        {% endif %}
+
+        {% include 'raspeedi/format/prog_table_format.html' with object=prog %}
+
+        {% include 'psa/format/emf_table_format.html' with object=corvet.prods.emf %}
+
+        {% include 'psa/format/cmm_table_format.html' with object=cmm %}
+
+        {% include 'psa/format/bsi_table_format.html' with object=corvet.prods.bsi %}
+
+        {% include 'psa/format/hdc_table_format.html' with object=corvet.prods.hdc %}
+
+    </section>
+    <section class="col-sm-6">
+        <h3 class="text-gray-800">Données CORVET :</h3>
+
+        {% include 'psa/format/corvet_table_format.html' with object=corvet %}
+
+    </section>
+</div>

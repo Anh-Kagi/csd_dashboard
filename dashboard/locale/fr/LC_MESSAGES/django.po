@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 17:53+0200\n"
+"POT-Creation-Date: 2021-05-20 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,236 +18,240 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: dashboard/templates/dashboard/base.html:29 dashboard/views.py:21
-#: dashboard/views.py:59
-msgid "Dashboard"
-msgstr "Tableau de bord"
+#: dashboard/templates/dashboard/charts.html:163
+#: dashboard/templates/dashboard/index.html:49
+msgid "Edit"
+msgstr "Editer"
 
-#: dashboard/templates/dashboard/base.html:45
-#: dashboard/templates/dashboard/top_bar.html:143
-#: dashboard/templates/registration/login.html:58
-msgid "Login"
-msgstr "Connexion"
+#: dashboard/templates/dashboard/charts.html:166
+#: dashboard/templates/dashboard/index.html:53
+#: dashboard/templates/dashboard/modal/post_delete.html:19
+#: dashboard/templates/dashboard/modal/weblink_delete.html:19
+msgid "Delete"
+msgstr "Supprimer"
 
-#: dashboard/templates/dashboard/done.html:26
-#: dashboard/templates/registration/password_change_done.html:26
+#: dashboard/templates/dashboard/done.html:21
 msgid "Back to Dashboard"
 msgstr "Retour au Tableau de bord"
 
-#: dashboard/templates/dashboard/modal_logout.html:9
+#: dashboard/templates/dashboard/index.html:19
+#: dashboard/templates/dashboard/modal/post_create.html:7
+msgid "Create Post"
+msgstr "Ajout d'un Post"
+
+#: dashboard/templates/dashboard/late_products/tab_select.html:5
+#: dashboard/views.py:64 dashboard/views.py:73
+msgid "Late Products"
+msgstr "Produits en retard"
+
+#: dashboard/templates/dashboard/modal/login.html:10
+msgid "Welcome Back!"
+msgstr "Vous avez un compte ?"
+
+#: dashboard/templates/dashboard/modal/login.html:39
+msgid "Login"
+msgstr "Connexion"
+
+#: dashboard/templates/dashboard/modal/login.html:43
+msgid "Forgot Password?"
+msgstr "Mot de passe oublié ?"
+
+#: dashboard/templates/dashboard/modal/logout.html:4
 msgid "Ready to Leave?"
 msgstr "Prêt à partir ?"
 
-#: dashboard/templates/dashboard/modal_logout.html:15
+#: dashboard/templates/dashboard/modal/logout.html:10
 msgid "Select \"Logout\" below if you are ready to end your current session."
 msgstr ""
 "Sélectionnez \"Déconnexion\" ci-dessous si vous êtes prêt à mettre fin à "
 "votre session en cours."
 
-#: dashboard/templates/dashboard/modal_logout.html:18
+#: dashboard/templates/dashboard/modal/logout.html:13
+#: dashboard/templates/dashboard/modal/post_create.html:53
+#: dashboard/templates/dashboard/modal/post_delete.html:18
+#: dashboard/templates/dashboard/modal/post_update.html:53
+#: dashboard/templates/dashboard/modal/weblink_create.html:37
+#: dashboard/templates/dashboard/modal/weblink_delete.html:18
+#: dashboard/templates/dashboard/modal/weblink_update.html:37
 msgid "Cancel"
 msgstr "Annuler"
 
-#: dashboard/templates/dashboard/modal_logout.html:19
-#: dashboard/templates/dashboard/top_bar.html:127
-#: dashboard/templates/registration/profile.html:61
+#: dashboard/templates/dashboard/modal/logout.html:14
+#: dashboard/templates/dashboard/profile.html:113
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:25
-#: dashboard/templates/dashboard/nav_csd_atelier.html:89
-msgid "Customer files"
-msgstr "Dossiers clients"
+#: dashboard/templates/dashboard/modal/post_create.html:54
+#: dashboard/templates/dashboard/modal/weblink_create.html:38
+msgid "Create"
+msgstr "Création"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:26
-msgid "Corvet table"
-msgstr "Tableau Corvet"
+#: dashboard/templates/dashboard/modal/post_delete.html:7
+msgid "Delete Post"
+msgstr "Supprimer le Post"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:29
-msgid "Add Corvet"
-msgstr "Ajout Corvet"
+#: dashboard/templates/dashboard/modal/post_delete.html:14
+msgid "Are you sure you want to delete post with title"
+msgstr "Voulez-vous vraiment supprimer le message avec le titre"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:50
-#: dashboard/templates/dashboard/nav_csd_atelier.html:96 dashboard/views.py:78
-msgid "Software list"
-msgstr "Liste Logiciels"
+#: dashboard/templates/dashboard/modal/post_update.html:7
+msgid "Update Post"
+msgstr "Mettre à jour le Post"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:53
-msgid "Software Add"
-msgstr "Ajout Logiciel"
+#: dashboard/templates/dashboard/modal/post_update.html:54
+#: dashboard/templates/dashboard/modal/weblink_update.html:38
+#: dashboard/templates/dashboard/profile.html:104
+msgid "Update"
+msgstr "Mise à jour"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:74
-msgid "Products table"
-msgstr "Table produits"
+#: dashboard/templates/dashboard/modal/signup.html:7
+msgid "New user"
+msgstr "Nouveau utilisateur"
 
-#: dashboard/templates/dashboard/nav_csd_atelier.html:77
-msgid "Add product"
-msgstr "Ajout produit"
-
-#: dashboard/templates/dashboard/nav_csd_atelier.html:103
-msgid "Raspeedi table"
-msgstr "Tableau Raspeedi"
-
-#: dashboard/templates/dashboard/soft_form.html:7
-msgid "JIG Name"
-msgstr "Nom JIG"
-
-#: dashboard/templates/dashboard/soft_form.html:14
-msgid "Version"
-msgstr "Version"
-
-#: dashboard/templates/dashboard/soft_form.html:23
-msgid "Link download"
-msgstr "lien téléchargement"
-
-#: dashboard/templates/dashboard/soft_form.html:38
-msgid "Validation date"
-msgstr "Date de validation"
-
-#: dashboard/templates/dashboard/soft_form.html:55
+#: dashboard/templates/dashboard/modal/signup.html:35
 msgid "Submit"
 msgstr "Soumettre"
 
-#: dashboard/templates/dashboard/top_bar.html:18
-msgid "Search Xelon or VIN..."
-msgstr "Rechercher Xelon ou VIN..."
+#: dashboard/templates/dashboard/modal/weblink_create.html:10
+msgid "Create web link"
+msgstr "Créer un lien Web"
 
-#: dashboard/templates/dashboard/top_bar.html:76
-msgid "English"
-msgstr "Anglais"
+#: dashboard/templates/dashboard/modal/weblink_delete.html:7
+msgid "Delete web link"
+msgstr "Supprimer le lien Web"
 
-#: dashboard/templates/dashboard/top_bar.html:85
-msgid "French"
-msgstr "Français"
+#: dashboard/templates/dashboard/modal/weblink_delete.html:14
+msgid "Are you sure you want to delete web link with title"
+msgstr "Voulez-vous vraiment supprimer le lien Web avec le titre"
 
-#: dashboard/templates/dashboard/top_bar.html:108
-msgid "Profile"
-msgstr "Mon Profil"
+#: dashboard/templates/dashboard/modal/weblink_update.html:10
+msgid "Update web link"
+msgstr "Mettre à jour le lien Web"
 
-#: dashboard/templates/dashboard/top_bar.html:112
-#: dashboard/templates/registration/profile.html:48
-#, fuzzy
-msgid "Change password"
-msgstr "Mot de passe"
-
-#: dashboard/templates/dashboard/top_bar.html:117
-msgid "Administration"
-msgstr "Administration"
-
-#: dashboard/templates/dashboard/top_bar.html:122
-msgid "Activity Log"
-msgstr "Journal d'activité"
-
-#: dashboard/templates/dashboard/top_bar.html:134
-msgid "Guest"
-msgstr "Invité"
-
-#: dashboard/templates/registration/login.html:25
-msgid "Welcome Back!"
-msgstr "Vous avez un compte ?"
-
-#: dashboard/templates/registration/login.html:35
-#: dashboard/templates/registration/profile.html:33
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: dashboard/templates/registration/login.html:42
-#: dashboard/templates/registration/profile.html:45
-msgid "Password"
-msgstr "Mot de passe"
-
-#: dashboard/templates/registration/login.html:48
-msgid "Remember Me"
-msgstr "Se souvenir de moi"
-
-#: dashboard/templates/registration/login.html:54
-msgid "Invalid username or password"
-msgstr "Nom d'utilisateur ou mot de passe invalide"
-
-#: dashboard/templates/registration/login.html:64
-msgid "Forgot Password?"
-msgstr "Mot de passe oublié ?"
-
-#: dashboard/templates/registration/login.html:69
-msgid "Create an Account!"
-msgstr "Création d'un compte !"
-
-#: dashboard/templates/registration/password_change_form.html:31
-#, fuzzy
-msgid "Old password"
-msgstr "Ancien mot de passe"
-
-#: dashboard/templates/registration/password_change_form.html:36
-#, fuzzy
-msgid "New password"
-msgstr "Nouveau mot de passe"
-
-#: dashboard/templates/registration/password_change_form.html:41
-msgid "Confirmation of the new password"
-msgstr "Confirmation du nouveau mot de passe"
-
-#: dashboard/templates/registration/password_change_form.html:49
-msgid "You must fill all the fields"
-msgstr "Vous devez remplir tout les champs"
-
-#: dashboard/templates/registration/password_change_form.html:55
-msgid "Old password does not match your account"
-msgstr "L'ancien mot de passe ne correspond pas à celui de votre compte"
-
-#: dashboard/templates/registration/password_change_form.html:61
-msgid "The new password is invalid"
-msgstr "Le nouveau mot de passe est invalide"
-
-#: dashboard/templates/registration/password_change_form.html:71
-msgid "Validate the change"
-msgstr "Valider le changement"
-
-#: dashboard/templates/registration/profile.html:22
-msgid "User Profile"
-msgstr "Mon Profil"
-
-#: dashboard/templates/registration/profile.html:29
+#: dashboard/templates/dashboard/profile.html:23
 msgid "Profile picture"
 msgstr "Image de profile"
 
-#: dashboard/templates/registration/profile.html:37
+#: dashboard/templates/dashboard/profile.html:50
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: dashboard/templates/dashboard/profile.html:54
 msgid "Last name"
 msgstr "Nom de famille"
 
-#: dashboard/templates/registration/profile.html:41
+#: dashboard/templates/dashboard/profile.html:58
 msgid "First name"
-msgstr "Prénon"
+msgstr "Prénom"
 
-#: dashboard/templates/registration/profile.html:52
+#: dashboard/templates/dashboard/profile.html:62
+msgid "Password"
+msgstr "Mot de passe"
+
+#: dashboard/templates/dashboard/profile.html:65
+msgid "Change password"
+msgstr "Changer le mot de passe"
+
+#: dashboard/templates/dashboard/profile.html:69
 msgid "E-mail address"
 msgstr "Adresse E-mail"
 
-#: dashboard/views.py:38
-#, python-brace-format
-msgid "Detail data for the Xelon file: {file}"
-msgstr "Données détaillées pour le dossier Xelon : {file}"
+#: dashboard/templates/dashboard/register.html:17
+msgid "Create an Account!"
+msgstr "Création d'un compte !"
 
-#: dashboard/views.py:60
-#, fuzzy
-#| msgid "Activity Log"
+#: dashboard/templates/dashboard/weblink.html:9
+msgid "Add web link"
+msgstr "Ajouter un lien Web"
+
+#: dashboard/tests/tests_dashboard_views.py:83
+msgid "This field is required."
+msgstr "Ce champ est requis."
+
+#: dashboard/views.py:37
+msgid "Home"
+msgstr "Acceuil"
+
+#: dashboard/views.py:44 dashboard/views.py:119
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: dashboard/views.py:92
+msgid "Search"
+msgstr "Recherche"
+
+#: dashboard/views.py:93
+msgid "Xelon files"
+msgstr "Dossiers Xelon"
+
+#: dashboard/views.py:101
+msgid "Warning: The research was not successful."
+msgstr "Avertissement: la recherche n'a pas réussi."
+
+#: dashboard/views.py:120
 msgid "Activity log"
 msgstr "Journal d'activité"
 
-#: dashboard/views.py:91
-msgid "Software integration"
-msgstr "Intégration logiciel"
+#: dashboard/views.py:128
+msgid "User Profile"
+msgstr "Mon Profil"
 
-#: dashboard/views.py:101
-#, fuzzy
-msgid "Added successfully!"
-msgstr "Ajout réalisé avec succès !"
+#: dashboard/views.py:135
+msgid "Success: Update profile picture!"
+msgstr "Succès: mise à jour de la photo de profil !"
 
-#: dashboard/views.py:121
-#, fuzzy
-msgid "Modification done successfully!"
-msgstr "Ajout réalisé avec succès !"
+#: dashboard/views.py:140
+msgid "Success: Update display configuration!"
+msgstr "Succès: mise à jour de la configuration de l'affichage !"
 
-#: dashboard/views.py:125
-#, python-brace-format
-msgid "Modification data Software for JIG: {jig}"
-msgstr "Modification des données pour le Software du JIG: {jig}"
+#: dashboard/views.py:150
+msgid "SignUp"
+msgstr "S'inscrire"
+
+#: dashboard/views.py:174
+msgid "Success: Sign up succeeded. You can now Log in."
+msgstr "Succès: l'inscription a réussi. Vous pouvez maintenant vous connecter."
+
+#: dashboard/views.py:190
+msgid "Thank you for your email confirmation. Now you can login your account."
+msgstr ""
+"Merci pour votre e-mail de confirmation. Vous pouvez maintenant vous "
+"connecter à votre compte."
+
+#: dashboard/views.py:193
+msgid "Activation link is invalid!"
+msgstr "Le lien d'activation n'est pas valide !"
+
+#: dashboard/views.py:201
+msgid "Success: You are logged in."
+msgstr "Succès: vous êtes connecté."
+
+#: dashboard/views.py:215
+msgid "Success: Post was created."
+msgstr "Succès: Le message a été créé."
+
+#: dashboard/views.py:225
+msgid "Success: Post was updated."
+msgstr "Succès: Le message a été mis à jour."
+
+#: dashboard/views.py:234
+msgid "Success: Post was deleted."
+msgstr "Succès: Le message a été supprimé."
+
+#: dashboard/views.py:242
+msgid "Success: Web link was created"
+msgstr "Succès: Le lien Web a été créé."
+
+#: dashboard/views.py:256
+msgid "Success: Web link was updated"
+msgstr "Succès: Le lien Web a été mis à jour."
+
+#: dashboard/views.py:270
+msgid "Success: Web link was deleted."
+msgstr "Succès: Le lien Web a été supprimé."
+
+#~ msgid "Late products"
+#~ msgstr "Produits en retard"
+
+#~ msgid "Success: Modification done!"
+#~ msgstr "Succès: Modification effectuée !"

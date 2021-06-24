@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 17:53+0200\n"
+"POT-Creation-Date: 2021-05-20 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,366 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: sbadmin/settings/__init__.py:141
+#: import_export/templates/import_export/detail_csd.html:21
+#: import_export/templates/import_export/detail_csd.html:45
+#: import_export/templates/import_export/detail_reman.html:21
+#: import_export/templates/import_export/detail_tools.html:21
+msgid "Data Export"
+msgstr "Exportation de données"
+
+#: import_export/templates/import_export/detail_reman.html:50
+msgid "Csv Import"
+msgstr "Importation CSV"
+
+#: import_export/templates/import_export/detail_reman.html:74
+msgid "Excel Import"
+msgstr "Importation Excel"
+
+#: import_export/views.py:64 import_export/views.py:87
+msgid "You do not have the required permissions"
+msgstr "Vous ne disposez pas des autorisations requises"
+
+#: sbadmin/settings/__init__.py:164 templates/base/top_bar.html:97
 msgid "French"
 msgstr "Français"
 
-#: sbadmin/settings/__init__.py:142
+#: sbadmin/settings/__init__.py:165 templates/base/top_bar.html:88
 msgid "English"
 msgstr "Anglais"
+
+#: templates/base.html:21
+msgid "release"
+msgstr "version"
+
+#: templates/base/top_bar.html:24
+msgid "Search Xelon, VIN or SN..."
+msgstr "Recherche Xelon, VIN ou SN..."
+
+#: templates/base/top_bar.html:120
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/base/top_bar.html:124
+msgid "Change password"
+msgstr ""
+
+#: templates/base/top_bar.html:129
+msgid "Administration"
+msgstr ""
+
+#: templates/base/top_bar.html:133
+msgid "New user"
+msgstr "Nouveau utilisateur"
+
+#: templates/base/top_bar.html:137
+msgid "Import Squalaetp"
+msgstr "Import Squalaetp"
+
+#: templates/base/top_bar.html:142
+msgid "API Documentation"
+msgstr "Documentation API"
+
+#: templates/base/top_bar.html:146
+msgid "Activity Log"
+msgstr "log d'activité"
+
+#: templates/base/top_bar.html:151 templates/nav/nav_interface.html:39
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: templates/base/top_bar.html:158
+msgid "Guest"
+msgstr "Invité"
+
+#: templates/base/top_bar.html:171 templates/nav/nav_interface.html:21
+#: templates/registration/login.html:47
+msgid "Login"
+msgstr "S'identifier"
+
+#: templates/nav/nav_csd_admin.html:21 templates/nav/nav_csd_atelier.html:29
+#: templates/nav/nav_csd_atelier.html:49 templates/nav/nav_csd_atelier.html:82
+#: templates/nav/nav_csd_atelier.html:100
+#: templates/nav/nav_csd_atelier.html:118 templates/nav/nav_tools.html:28
+#: templates/nav/nav_tools.html:83
+msgid "Informations"
+msgstr ""
+
+#: templates/nav/nav_csd_admin.html:24 templates/nav/nav_csd_atelier.html:63
+#: templates/nav/nav_tools.html:34 templates/nav/nav_tools.html:88
+msgid "Editing"
+msgstr "Edition"
+
+#: templates/nav/nav_csd_atelier.html:22 templates/nav/nav_reman.html:21
+#: templates/nav/nav_reman.html:46 templates/nav/nav_reman.html:71
+#: templates/nav/nav_tools.html:23
+msgid "Treatments"
+msgstr "traitements"
+
+#: templates/nav/nav_csd_atelier.html:24 templates/nav/nav_reman.html:26
+msgid "Current files"
+msgstr "Dossiers en cours"
+
+#: templates/nav/nav_csd_atelier.html:26
+msgid "VIN Error files"
+msgstr "Dossiers erreur VIN"
+
+#: templates/nav/nav_csd_atelier.html:27
+msgid "Late products"
+msgstr "produits en retard"
+
+#: templates/nav/nav_csd_atelier.html:30 templates/nav/nav_reman.html:95
+msgid "Customer files"
+msgstr "Dossiers clients"
+
+#: templates/nav/nav_csd_atelier.html:31
+msgid "Stock Parts"
+msgstr "Pièces détachées"
+
+#: templates/nav/nav_csd_atelier.html:32
+msgid "Change history"
+msgstr "Historique modifications"
+
+#: templates/nav/nav_csd_atelier.html:52
+msgid "Corvet table"
+msgstr "Tableau Corvet"
+
+#: templates/nav/nav_csd_atelier.html:56 templates/nav/nav_tools.html:29
+msgid "Products table"
+msgstr "Tableau produits"
+
+#: templates/nav/nav_csd_atelier.html:59 templates/nav/nav_csd_atelier.html:83
+#: templates/nav/nav_csd_atelier.html:101
+#: templates/nav/nav_csd_atelier.html:119
+msgid "Tools & Links"
+msgstr "Outils & Liens"
+
+#: templates/nav/nav_csd_atelier.html:64
+msgid "Add Corvet"
+msgstr "Ajout Corvet"
+
+#: templates/nav/nav_csd_atelier.html:127
+msgid "supplier links"
+msgstr "Liens fournisseurs"
+
+#: templates/nav/nav_csd_atelier.html:137 templates/nav/nav_tools.html:24
+msgid "Unlock VIN"
+msgstr "Déverrouiller VIN"
+
+#: templates/nav/nav_general.html:6
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: templates/nav/nav_general.html:14
+msgid "Generate Squalaetp"
+msgstr "Générer Squalaetp"
+
+#: templates/nav/nav_general.html:22 templates/nav/nav_tools.html:56
+msgid "Thermal chamber"
+msgstr "Chambre thermique"
+
+#: templates/nav/nav_general.html:30
+msgid "Other links"
+msgstr "Autres liens"
+
+#: templates/nav/nav_general.html:37
+msgid "Import / Export"
+msgstr ""
+
+#: templates/nav/nav_interface.html:29
+msgid "SignUp"
+msgstr "S'inscrire"
+
+#: templates/nav/nav_reman.html:17
+msgid "Repairs"
+msgstr "Réparations"
+
+#: templates/nav/nav_reman.html:22
+msgid "Create file"
+msgstr "Création dossier"
+
+#: templates/nav/nav_reman.html:47
+msgid "Create Batch"
+msgstr "Création lot"
+
+#: templates/nav/nav_reman.html:48
+msgid "Create Etude Batch"
+msgstr "Création lot Etude"
+
+#: templates/nav/nav_reman.html:52
+msgid "Current batches"
+msgstr "Lots en cours"
+
+#: templates/nav/nav_reman.html:53
+msgid "Etude batches"
+msgstr "Lots en Etude"
+
+#: templates/nav/nav_reman.html:72
+msgid "REMAN References"
+msgstr "Réf. REMAN"
+
+#: templates/nav/nav_reman.html:73
+msgid "HW References"
+msgstr "Réf. Hardware"
+
+#: templates/nav/nav_reman.html:74
+msgid "Default list"
+msgstr "Liste des pannes"
+
+#: templates/nav/nav_reman.html:77
+msgid "Etude"
+msgstr ""
+
+#: templates/nav/nav_reman.html:78
+msgid "ECU to Dump"
+msgstr "ECU à Dumper"
+
+#: templates/nav/nav_reman.html:96
+msgid "Batch list"
+msgstr "Liste des lots"
+
+#: templates/nav/nav_reman.html:97
+msgid "Spare Parts"
+msgstr "Pièces détachées"
+
+#: templates/nav/nav_reman.html:108
+msgid "Shipment"
+msgstr "Expédition"
+
+#: templates/nav/nav_reman.html:116
+msgid "check part"
+msgstr "Vérification pièce"
+
+#: templates/nav/nav_tools.html:7
+msgid "Tools"
+msgstr "Outils"
+
+#: templates/nav/nav_tools.html:35
+msgid "Add product"
+msgstr "Ajout produit"
+
+#: templates/nav/nav_tools.html:58
+msgid "Unlock table"
+msgstr "Tableau dever. VIN"
+
+#: templates/nav/nav_tools.html:60
+msgid "tag Xelon table"
+msgstr "Tableau tag Xelon"
+
+#: templates/nav/nav_tools.html:61
+msgid "Suptech table"
+msgstr "Tableau Suptech"
+
+#: templates/nav/nav_tools.html:85
+msgid "Software list"
+msgstr "Liste logiciel"
+
+#: templates/nav/nav_tools.html:90
+msgid "Software Add"
+msgstr "Ajout logiciel"
+
+#: templates/registration/login.html:20
+msgid "Welcome to CSD Dashboard"
+msgstr "Bienvenue sur le tableau de bord CSD"
+
+#: templates/registration/login.html:21
+msgid "Please enter your login information to continue."
+msgstr "Veuillez renseigner vos informations de connexion pour continuer."
+
+#: templates/registration/login.html:53
+msgid "Forgot Password?"
+msgstr ""
+
+#: templates/registration/password_change_done.html:21
+msgid "Back to Dashboard"
+msgstr ""
+
+#: templates/registration/password_change_form.html:26
+msgid "Old password"
+msgstr ""
+
+#: templates/registration/password_change_form.html:31
+msgid "New password"
+msgstr ""
+
+#: templates/registration/password_change_form.html:43
+msgid "Confirmation of the new password"
+msgstr "Confirmation du nouveau mot de passe"
+
+#: templates/registration/password_change_form.html:51
+msgid "You must fill all the fields"
+msgstr "Vous devez remplir tous les champs"
+
+#: templates/registration/password_change_form.html:57
+msgid "Old password does not match your account"
+msgstr "L'ancien mot de passe ne correspond pas à votre compte"
+
+#: templates/registration/password_change_form.html:63
+msgid "The new password is invalid"
+msgstr "Le nouveau mot de passe est invalide"
+
+#: templates/registration/password_change_form.html:73
+msgid "Validate the change"
+msgstr "Valider le changement"
+
+#: templates/registration/password_reset_complete.html:17
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"Votre mot de passe a été défini. Vous pouvez continuer et vous connecter "
+"maintenant."
+
+#: templates/registration/password_reset_complete.html:23
+msgid "Log in"
+msgstr "S'identifier"
+
+#: templates/registration/password_reset_confirm.html:19
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:42
+msgid "Change my password"
+msgstr "Changer mon mot de passe"
+
+#: templates/registration/password_reset_confirm.html:48
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:17
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:19
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:17
+msgid ""
+"Forgotten your password? Enter your email address below, and we’ll email "
+"instructions for setting a new one."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:38
+msgid "Reset my password"
+msgstr "Réinitialiser mon mot de passe"
+
+#: utils/django/validators.py:23
+msgid ""
+"The V.I.N. is invalid, it should be 17 characters and be part of PSA vehicles"
+msgstr ""
+"Le V.I.N. n'est pas valide, il doit comporter 17 caractères et faire partie "
+"des véhicules PSA"
+
+#: utils/django/validators.py:44
+msgid ""
+"The V.I.N. or UIN is invalid, it should be 17 or 18 characters and be part "
+"of PSA vehicles"
+msgstr ""
+"Le V.I.N. ou l'UIN n'est pas valide, il doit comporter 17 ou 18 caractères "
+"et faire partie des véhicules PSA"

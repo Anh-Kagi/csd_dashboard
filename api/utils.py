@@ -1,25 +1,32 @@
-from squalaetp.models import Xelon
+from rest_framework.authentication import TokenAuthentication
+from django.utils import timezone
+
+from tools.models import ThermalChamber
 
 
-def products_count():
+class TokenAuthSupportQueryString(TokenAuthentication):
     """
-    Function to count the number of products to repair
-    :return:
-        list of name and number of different products
+    Extend the TokenAuthentication class to support querystring authentication
+    in the form of "http://www.example.com/?auth_token=<token_key>"
     """
-    labels = ["RT6/RNEG2", "SMEG", "RNEG", "NG4", "DISPLAY", "RTx"]
-    prod_nb = []
-    rtx_nb = 0
-    for prod in labels:
-        if prod in ["DISPLAY", "SMEG"]:
-            prod_nb.append(Xelon.objects.filter(modele_produit__icontains=prod, date_retour__isnull=False).count())
-        elif prod == "RTx":
-            for rtx in ["RT3", "RT4", "RT5"]:
-                rtx_nb += Xelon.objects.filter(modele_produit=rtx, date_retour__isnull=False).count()
+    def authenticate(self, request):
+        # Check if 'token_auth' is in the request query params.
+        # Give precedence to 'Authorization' header.
+        if 'auth_token' in request.query_params and 'HTTP_AUTHORIZATION' not in request.META:
+            return self.authenticate_credentials(request.query_params.get('auth_token'))
         else:
-            prod_nb.append(Xelon.objects.filter(modele_produit=prod, date_retour__isnull=False).count())
-    prod_nb.append(rtx_nb)
-    labels_nb = sum(prod_nb)
-    prod_nb.append(Xelon.objects.filter(date_retour__isnull=False).count() - labels_nb)
-    labels.append("AUTRES")
-    return labels, prod_nb
+            return super(TokenAuthSupportQueryString, self).authenticate(request)
+
+
+def thermal_chamber_use(temp):
+    now = timezone.now()
+    ThermalChamber.objects.filter(created_at__lt=now.date(), active=True).update(active=False)
+    if temp and float(temp[:-2]) < 0:
+        thermals = ThermalChamber.objects.filter(operating_mode='FROID', active=True, start_time__isnull=True)
+        thermals.update(start_time=now)
+    elif temp and float(temp[:-2]) > 40:
+        thermals = ThermalChamber.objects.filter(operating_mode='CHAUD', active=True, start_time__isnull=True)
+        thermals.update(start_time=now)
+    elif temp:
+        thermals = ThermalChamber.objects.filter(active=True, start_time__isnull=False)
+        thermals.update(stop_time=now, active=False)

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import shutil
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,29 +20,48 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q2sb*vqltbpi59f#l2c&mak*%h&xzv1)i^#e0_as^cmx^-9)8x'
+# SECRET_KEY = 'q2sb*vqltbpi59f#l2c&mak*%h&xzv1)i^#e0_as^cmx^-9)8x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+#
+# ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
-    'dashboard.apps.DashboardConfig',
-    'raspeedi.apps.RaspeediConfig',
-    'squalaetp.apps.SqualaetpConfig',
-    'api.apps.ApiConfig',
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'rest_framework',
     'rest_framework.authtoken',
+    'ckeditor',
+    'tempus_dominus',
+    'bootstrap_modal_forms',
+    'widget_tweaks',
+    'constance.backends.database',
+    'constance',
+    'django_inlinecss',
+    'celery_progress',
+    'django_celery_beat',
+    'django_celery_results',
+
+    # My apps
+    'dashboard.apps.DashboardConfig',
+    'raspeedi.apps.RaspeediConfig',
+    'squalaetp.apps.SqualaetpConfig',
+    'reman.apps.RemanConfig',
+    'tools.apps.ToolsConfig',
+    'api.apps.ApiConfig',
+    'import_export.apps.ImportExportConfig',
+    'psa.apps.PsaConfig',
+    'ford.apps.FordConfig',
+    'renault.apps.RenaultConfig',
+    'vag.apps.VagConfig',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'crum.CurrentRequestUserMiddleware',
 ]
 
 ROOT_URLCONF = 'sbadmin.urls'
@@ -61,7 +81,9 @@ ROOT_URLCONF = 'sbadmin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(os.path.dirname(BASE_DIR), 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +92,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
+                'sbadmin.context_processor.get_release'
             ],
         },
     },
@@ -80,16 +103,14 @@ WSGI_APPLICATION = 'sbadmin.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'csd_atelier',
-        'USER': 'nels885',
-        'PASSWORD': 'kikoulol',
-        'HOST': '',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -113,15 +134,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://www.django-rest-framework.org
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'api.utils.TokenAuthSupportQueryString',
+    ),
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DATETIME_FORMAT': '%d-%m-%Y %H:%M:%S',
 }
 
 # Internationalization
@@ -151,26 +174,204 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(BASE_DIR), "static"),
+)
 
-INTERNAL_IPS = '127.0.0.1'
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 
-LOGIN_REDIRECT_URL = '/dashboard/profile/'
+LOGIN_REDIRECT_URL = '/dashboard/charts/'
 LOGOUT_REDIRECT_URL = '/'
 
-# Config Clarion
-XLS_ROOT = os.path.abspath('/home/nels885/Documents/CSD_DATABASE')
+# Configuration sessions
 
-XLS_RASPEEDI_FILE = os.path.join(XLS_ROOT, "PROG/RASPEEDI/table_boitier_PSA.xlsx")
-XLS_SQUALAETP_FILE = os.path.join(XLS_ROOT, "EXTS/squalaetp.xls")
-XLS_ATTRIBUTS_FILE = os.path.join(XLS_ROOT, "EXTS/Attributs CORVET.xlsx")
-XLS_DELAY_FILES = [
-    os.path.join(XLS_ROOT, "RH/AnalyseRetards/PSA.xls"),
-    os.path.join(XLS_ROOT, "RH/AnalyseRetards/ILOTAUTRE.xls"),
-    os.path.join(XLS_ROOT, "RH/AnalyseRetards/LaboQual.xls"),
-    os.path.join(XLS_ROOT, "RH/AnalyseRetards/DEFAUT.xls"),
-    os.path.join(XLS_ROOT, "RH/AnalyseRetards/CLARION.xls"),
-]
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 1209600
+
+# Configuration CkEditor
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': 765,
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'CopyFormatting', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
+            ['TextColor', 'BGColor', '-', 'Link', 'Unlink', 'Anchor'],
+            ['Scayt', '-', 'Source']
+        ],
+    },
+    'comment': {
+        'toolbar': 'Custom',
+        'height': 200,
+        'width': '100%',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'CopyFormatting', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
+            ['TextColor', 'BGColor', 'FontSize', '-', 'Link', 'Unlink', 'Anchor'],
+            ['Scayt', '-', 'Source']
+        ],
+    }
+}
+
+# Configuration Tempus Dominus
+TEMPUS_DOMINUS_LOCALIZE = True
+TEMPUS_DOMINUS_INCLUDE_ASSETS = False
+
+# Configuration DJANGO-CONSTANCE
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    # General Options
+    'SITE_NAME': ('CSD Dashboard', 'Website title'),
+    'SITE_DESCRIPTION': ('', 'Website description'),
+    'WEBSITE_DOMAIN': ('127.0.0.1:8000', 'Webside domain name'),
+
+    # Network Options
+    'BASE_DIR': ('~/Documents/CSD_DATABASE', 'Network drive path'),
+    'XLS_RASPEEDI_FILE': ('PROG/RASPEEDI/table_boitier_PSA.xlsx', 'xls raspeedi file'),
+    'XLS_SQUALAETP_FILE': ('EXTS/squalaetp.xls', 'xls squalaetp file'),
+    'XLS_ATTRIBUTS_FILE': ('EXTS/Attributs CORVET.xlsx', 'xls attributs file'),
+    'CSV_EXTRACTION_FILE': ('EXTS/extraction.csv', 'csv extraction file'),
+    'XLS_ECU_REF_BASE': ('REMAN/PSA/Base réf REMAN.xlsx', 'xls ECU ref base'),
+    'XLS_DELAY_PATH': ('RH/AnalyseRetards', 'Path of xls delay files'),
+    'XLS_DELAY_FILES': (
+        'PSA.xls, ILOTAUTRE.xls, LaboQual.xls, DEFAUT.xls, CLARION.xls', 'List of xls delay file'
+    ),
+    'XML_CORVET_PATH': ('LOGS/CORVET_XML_TEST', 'xml Corvet path'),
+    'TAG_XELON_PATH': ('LOGS/CALIBRE', 'tag xelon path'),
+    'TAG_XELON_LOG_PATH': ('LOGS/LOG_CONFIG_PROD', 'tag xelon log path'),
+
+    # CSD Repair Options
+    'VIN_ERROR_TO_EMAIL_LIST': ('test1@test.com; test2@test.com', 'VIN error TO email list'),
+    'LATE_PRODUCTS_TO_EMAIL_LIST': ('test1@test.com; test2@test.com', 'Late products TO email list'),
+    'REMAN_TO_EMAIL_LIST': ('test1@test.com; test2@test.com', 'REMAN TO email list'),
+    'CHANGE_VIN_TO_EMAIL_LIST': ('test1@test.com; test2@test.com', 'Change Xelon VIN TO email list'),
+    'CSD_CC_EMAIL_LIST': ('test1@test.com; test2@test.com', 'CSD Atelier CC email list'),
+    'CORVET_USER': ('', 'CORVET user for RepairLab'),
+    'CORVET_PWD': ('', 'CORVET password for RepairLab'),
+    'SQUALAETP_FILE_LIST': ('squalaetp_cal.xls, squalaetp_ecu.xls, squalaetp_prog.xls', 'Squalaetp file list'),
+
+    # REMAN Options
+    'ECU_TO_EMAIL_LIST': ('test1@test.com; test2@test.com', 'REMAN TO email list'),
+    'ECU_CC_EMAIL_LIST': ('', 'REMAN CC email list'),
+    'BATCH_EXPORT_FILE': ('EXTS/reman_lots.csv', 'File name for exporting batch'),
+    'REPAIR_EXPORT_FILE': ('EXTS/reman_repairs.csv', 'File name for exporting repairs'),
+    'CHECKOUT_EXPORT_FILE': ('EXTS/reman_output.csv', 'File name for exporting data from check out'),
+    'SCAN_IN_OUT_EXPORT_FILE': ('EXTS/BASE_REF_REMAN.xlsx', 'File name for exporting Base Ref REMAN of SCAN IN/OUT'),
+    'DICT_YEAR': (
+        "{2020: 'C', 2021: 'D', 2022: 'G', 2023: 'H', 2024: 'K', 2025: 'L', 2026: 'O', 2027: 'T', 2028: 'U'}",
+        'REMAN batch date formatting dictionary'
+    ),
+
+    # MQTT Options
+    "MQTT_TOPIC": ('TEMP/TC-01', 'Topic subcribe'),
+    'MQTT_TEMP_ADJ': (4, 'Temp adjust', int),
+    'MQTT_CLIENT': ('', 'Client name'),
+    'MQTT_USER': ('', 'Login'),
+    'MQTT_PSWD': ('', 'Password'),
+    'MQTT_BROKER': ('test.mosquitto.org', 'Server address'),
+    'MQTT_PORT': (1883, 'Server port', int),
+    'KEEP_ALIVE': (45, 'Keep alive', int),
+
+    # tools Options
+    'SUPTECH_TO_EMAIL_LIST': ('test1@test.com; test2@test.com', 'Suptech TO email list'),
+    'PRINTER_STREAM_URL': ('http://10.115.141.42:8080/?action=stream', '3D printer streaming URL'),
+    'PROXY_HOST_SCRAPING': ('', 'Proxy HOST for Scraping'),
+    'PROXY_PORT_SCRAPING': ('', 'Proxy PORT for Scraping'),
+}
+
+CONSTANCE_CONFIG_FIELDSETS = {
+    '1. General Options': ('SITE_NAME', 'SITE_DESCRIPTION', 'WEBSITE_DOMAIN'),
+    '2. Network Options': (
+        'BASE_DIR', 'XLS_RASPEEDI_FILE', 'XLS_SQUALAETP_FILE', 'XLS_ATTRIBUTS_FILE', 'CSV_EXTRACTION_FILE',
+        'XLS_ECU_REF_BASE', 'XLS_DELAY_PATH', 'XLS_DELAY_FILES', 'XML_CORVET_PATH', 'TAG_XELON_PATH',
+        'TAG_XELON_LOG_PATH'
+    ),
+    '3. CSD Repair Options': (
+        'VIN_ERROR_TO_EMAIL_LIST', 'LATE_PRODUCTS_TO_EMAIL_LIST', 'REMAN_TO_EMAIL_LIST', 'CHANGE_VIN_TO_EMAIL_LIST',
+        'CSD_CC_EMAIL_LIST', 'CORVET_USER', 'CORVET_PWD', 'SQUALAETP_FILE_LIST'
+    ),
+    '4. REMAN Options': (
+        'ECU_TO_EMAIL_LIST', 'ECU_CC_EMAIL_LIST', 'BATCH_EXPORT_FILE', 'REPAIR_EXPORT_FILE',
+        'CHECKOUT_EXPORT_FILE', 'SCAN_IN_OUT_EXPORT_FILE', 'DICT_YEAR'
+    ),
+    '5. Tools Options': (
+        'SUPTECH_TO_EMAIL_LIST', 'PRINTER_STREAM_URL', 'PROXY_HOST_SCRAPING', 'PROXY_PORT_SCRAPING'
+    ),
+    '6. MQTT Options': (
+        'MQTT_TOPIC', 'MQTT_TEMP_ADJ', 'MQTT_CLIENT', 'MQTT_USER', 'MQTT_PSWD', 'MQTT_BROKER', 'MQTT_PORT', 'KEEP_ALIVE'
+    )
+}
+
+# CELERY STUFF
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ["pickle", "json", "msgpack", "yaml"]
+CELERY_TASK_IGNORE_RESULT = False
+CELERY_TIMEZONE = "Europe/Paris"
+
+###############################
+# DJANGO LOGGER CONFIGURATION
+###############################
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{asctime}] [{process:d}] [{levelname}] {message}',
+            'datefmt': "%Y-%m-%d %H:%M:%S",
+            'style': '{',
+        },
+        'simple': {
+            'format': '[{levelname}] {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'console_verbose': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'mail_admin': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console_verbose'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['mail_admin'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'command': {
+            'handlers': ['mail_admin', 'console_verbose'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'celery': {
+            'handlers': ['mail_admin', 'console_verbose'],
+            'level': 'ERROR',
+            'propagate': False,
+        }
+    },
+}

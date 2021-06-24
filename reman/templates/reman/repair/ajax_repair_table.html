@@ -1,0 +1,55 @@
+{% extends 'format/datatables_format.html' %}
+
+{% load static i18n %}
+
+{% block card_header %}
+
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+
+            {% include 'reman/tab_select.html' with select=select_tab %}
+
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block table_content %}
+
+    <table class="table table-bordered table-sm text-nowrap display" id="repairTable" style="width: 100%;">
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Numéro d'identification</th>
+            <th>Numéro de lot</th>
+            <th>Modèle produit</th>
+            <th>Fabriquant</th>
+            <th>Réf. Hardware</th>
+            <th>Code barre PSA</th>
+            <th>Status</th>
+            <th>Contrôle qualité</th>
+            <th>Date de cloture</th>
+            <th>Modifié par</th>
+            <th>Modifié le</th>
+            <th>Créé par</th>
+            <th>Créé le</th>
+        </tr>
+        </thead>
+    </table>
+
+{% endblock %}
+
+{% block tablejs %}
+
+    <!-- Page level custom scripts -->
+    <script type="text/javascript">
+        let PERM;
+        {% if perms.reman.change_repair %}
+            PERM = true;
+        {% endif %}
+        const URL_AJAX = "{% url 'reman:api_repair-list' %}?filter={{ query_param }}";
+    </script>
+    <script type="text/javascript" src="{% static 'reman/js/ajax-reman-tables.js' %}"></script>
+
+{% endblock %}

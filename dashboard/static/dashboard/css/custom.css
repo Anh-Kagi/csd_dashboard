@@ -1,7 +1,0 @@
-.fb-page,
-.fb-page span,
-.fb-page span iframe[style] {
-    max-width: 100% !important;
-}
-
-div.container { max-width: 1200px }

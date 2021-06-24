@@ -1,0 +1,83 @@
+{% load i18n widget_tweaks %}
+
+<div class="{% if form.non_field_errors %}invalid{% endif %} text-center bg-danger text-white text-uppercase font-weight-bold mb-2">
+    {% for error in form.non_field_errors %}
+        {{ error }}
+    {% endfor %}
+</div>
+<div class="row">
+    <section class="col-sm-3">
+        <button class="bs-large-modal btn btn-secondary btn-block mb-3" data-form-url="{% url 'squalaetp:vin_edit' xelon.pk %}" {% if not perms.squalaetp.change_vin %}disabled{% endif %}>
+            Modification VIN / CORVET
+        </button>
+        <button class="bs-large-modal btn btn-secondary btn-block mb-3" data-form-url="{% url 'squalaetp:vin_email' xelon.pk %}" {% if not perms.squalaetp.email_vin %}disabled{% endif %}>
+            Envoi Email VIN
+        </button>
+        <hr>
+        <button class="bs-large-modal btn btn-secondary btn-block mb-3" data-form-url="{% url 'squalaetp:prod_edit' xelon.pk %}" {% if not perms.squalaetp.change_product %}disabled{% endif %}>
+            Modification PRODUIT
+        </button>
+        <button class="bs-large-modal btn btn-secondary btn-block mb-3" data-form-url="{% url 'squalaetp:prod_email' xelon.pk %}" {% if not perms.squalaetp.email_product %}disabled{% endif %}>
+            Envoi Email PRODUIT
+        </button>
+        <hr>
+        <button class="log-btn btn btn-secondary btn-block mb-5" data-id="{% url 'squalaetp:log_detail' xelon.pk %}">Info VIN Raspeedi</button>
+        {% if xelon.is_active %}
+            <a class="btn btn-secondary btn-block mb-3" href="#">PROG Actif</a>
+        {% else %}
+                <a class="btn btn-primary btn-block mb-3" href="{% url 'squalaetp:prog_activate' xelon.pk %}">Activer PROG</a>
+        {% endif %}
+        <a class="btn btn-success btn-block" href="{% url 'squalaetp:generate' %}">Générer Squalaetp</a>
+    </section>
+    <section class="col-sm-9">
+        {% for field in form %}
+            <div class="form-group">
+                <div class="form-group row">
+                    <label for="{{ field.id_for_label }}" class="col-sm-7 col-form-label">{{ field.label }}</label>
+                    <div class="col-sm-5">
+                        {% render_field field class="form-control" %}
+                        <div class="{% if field.errors %} invalid{% endif %}">
+                            {% for error in field.errors %}
+                                <p class="help-block font-weight-bold text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+</div>
+
+{% if xelon.actions.all %}
+
+    <div class="row">
+        <section class="col-sm-12 mt-4">
+            <table class="table table-bordered table-condensed text-nowrap">
+                <caption style="caption-side: top;">
+                    <h3 class="text-gray-800">HISTORIQUE MODIFICATIONS :</h3>
+                </caption>
+                <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Modifié le</th>
+                    <th>Modifié par</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for action in xelon.actions.all %}
+
+                    <tr>
+                        <td>{{ action.content|linebreaksbr }}</td>
+                        <td>{{ action.modified_at }}</td>
+                        <td>{{ action.modified_by }}</td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+{% endif %}

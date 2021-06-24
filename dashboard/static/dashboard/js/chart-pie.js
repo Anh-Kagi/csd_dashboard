@@ -1,47 +1,42 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
+Chart.defaults.font.Family = 'Nunito,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.color = '#858796';
 
-let endpoint = $("#prodPieChart").attr("data-url");
-let defaultData = [];
-let labels = [];
 $.ajax({
     method: "GET",
-    url: endpoint,
+    url: $("#dataCharts").attr("data-url"),
     success: function (data) {
-        console.log(data);
-        labels = data.labels;
-        defaultData = data.default;
+        // console.log(data);
+        let labels = data.prodLabels;
+        let defaultData = data.prodDefault;
         // Pie Chart Product
         var ctx = document.getElementById("prodPieChart");
         var prodPieChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
                     data: defaultData,
-                    backgroundColor: ['#4e73df', '#1cc88a', '#E74A3B', '#848696', '#5A5B68', '#36b9cc', '#F6C23E'],
-                    // hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                    backgroundColor: ['#079992', '#0a3d62', '#0c2461', '#b71540',
+                        '#e58e26', '#eb2f06', '#1e3799', '#3c6382',
+                        '#38ada9', '#78e08f', '#60a3bc', '#4a69bd', '#0C40FF'],
                     hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    borderWidth: 1
                 }],
             },
             options: {
                 maintainAspectRatio: false,
-                // tooltips: {
-                //     backgroundColor: "rgb(255,255,255)",
-                //     bodyFontColor: "#858796",
-                //     borderColor: '#dddfeb',
-                //     borderWidth: 1,
-                //     xPadding: 15,
-                //     yPadding: 15,
-                //     displayColors: false,
-                //     caretPadding: 10,
-                // },
-                legend: {
-                    display: true,
-                    position: 'right',
-                },
-                cutoutPercentage: 0,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'left',
+                        labels: {
+                            boxWidth: 20,
+                            fontSize: 10,
+                            padding: 5,
+                        }
+                    }
+                }
             },
         });
     },

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CSD : {{ title }}</title>
+
+    {% load static %}
+
+    <!-- favicon.ico -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet"
+          type="text/css">
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    {% block customcss %} {% endblock %}
+
+    {% block datatablescss %} {% endblock %}
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body id="page-top">
+
+{% include 'base/_modal.html' %}
+
+{% block custommodal %} {% endblock %}
+
+{% block basecontent %} {% endblock %}
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script type="text/javascript" src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Core plugin JavaScript-->
+<script type="text/javascript" src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/moment.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<script src="{% static 'celery_progress/celery_progress.js' %}" type="application/javascript"></script>
+
+<!-- Custom scripts for all pages-->
+<script type="text/javascript" src="{% static 'js/sb-admin-2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        // Log in buttons
+        $(".login-btn").modalForm({formURL: "{% url 'dashboard:login' %}"});
+        $(".logout-btn").modalForm({formURL: "{% url 'dashboard:logout' %}"});
+
+        $(".create-post").modalForm({formURL: "{% url 'dashboard:create_post' %}", modalID: "#large-modal"});
+
+        $(".create-weblink").modalForm({formURL: "{% url 'dashboard:create_weblink' %}", modalID: "#large-modal"});
+
+        $(".create-corvet").modalForm({formURL: "{% url 'psa:create_corvet' %}", modalID: "#large-modal"});
+
+        $(".create-batch").modalForm({formURL: "{% url 'reman:create_batch' %}"});
+
+        $(".create-repair").modalForm({formURL: "{% url 'reman:create_repair' %}"});
+
+        $(".create-etude-batch").modalForm({formURL: "{% url 'reman:create_etude_batch' %}"});
+
+        $(".create-default").modalForm({formURL: "{% url 'reman:create_default' %}", modalID: "#create-large-modal"});
+
+        $(".create-ref-reman").modalForm({formURL: "{% url 'reman:ref_reman_create' %}"});
+
+        $(".create-ecu-hw").modalForm({formURL: "{% url 'reman:ecu_hw_create' %}", modalID: "#create-large-modal"});
+
+        $(".create-tag-xelon").modalForm({formURL: "{% url 'tools:tag_xelon_add' %}", modalID: "#create-modal"});
+
+        $(".create-suptech").modalForm({formURL: "{% url 'tools:suptech_add' %}", modalID: "#create-large-modal"});
+    });
+
+    getProgress = (taskId, progressBarId, progressBarMessageId, isDownloadFile = false) => {
+        var progressUrl = `{% url 'progress' %}?task_id=${taskId}`;
+
+        function onExportUserProgress(progressBarElement, progressBarMessageElement, progress) {
+            progressBarMessageElement.innerHTML = `Progress ${progress.percent}% . . .`
+            progressBarElement.setAttribute("style", `width: ${progress.percent}%`)
+            progressBarElement.setAttribute("aria-valuenow", progress.percent)
+        }
+
+        function onExportUserSuccess(progressBarElement, progressBarMessageElement, result) {
+            // display message
+            if ("msg" in result) {
+                addMessage(result["msg"], "success");
+            } else {
+                addMessage("Complete Progress 100%", "success");
+            }
+            progressBarMessageElement.innerHTML = "Waiting event . . ."
+            progressBarElement.setAttribute("style", "width: 0%")
+            progressBarElement.setAttribute("aria-valuenow", 0)
+            if (isDownloadFile) window.open(`{% url 'download' %}?task_id=${taskId}`, '_blank');
+        }
+
+        CeleryProgressBar.initProgressBar(progressUrl, {
+            progressBarId: progressBarId,
+            progressBarMessageId: progressBarMessageId,
+            onProgress: onExportUserProgress,
+            onSuccess: onExportUserSuccess,
+        });
+    }
+
+</script>
+
+{% block datatablesjs %} {% endblock %}
+
+{% block extrascripts %} {% endblock %}
+
+{% block modalbtn %} {% endblock %}
+
+</body>
+
+</html>

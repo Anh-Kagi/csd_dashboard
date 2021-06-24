@@ -1,0 +1,55 @@
+{% extends 'format/datatables_format.html' %}
+
+{% load static i18n %}
+
+{% block card_header %}
+
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+
+            {% include 'reman/tab_select.html' with select='part' %}
+
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block table_content %}
+
+    <table class="table table-bordered text-nowrap" id="partTable" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th class="all">Code produit</th>
+            <th>Code zone</th>
+            <th>Code Emplacement</th>
+            <th>Cumul Dispo</th>
+            <th>Code magasin</th>
+            <th>Code site</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for part in parts %}
+
+            <tr>
+                <td>{{ part.code_produit }}</td>
+                <td>{{ part.code_zone }}</td>
+                <td>{{ part.code_emplacement }}</td>
+                <td>{{ part.cumul_dispo|default:"" }}</td>
+                <td>{{ part.code_magasin }}</td>
+                <td>{{ part.code_site|default:"" }}</td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block tablejs %}
+
+    <!-- Page level custom scripts -->
+    <script type="text/javascript" src="{% static 'reman/js/part-tables.js' %}"></script>
+
+{% endblock %}

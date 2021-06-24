@@ -1,0 +1,175 @@
+{% extends 'format/detail_format.html' %}
+
+{% load static i18n corvet_tags %}
+
+{% block card_header %}
+
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="detail-list" role="tablist">
+
+            {% if perms.squalaetp.change_xelon or perms.psa.change_corvet %}
+
+                {% include 'tab_select.html' with name='ihm' tab_title="IHM Extraction" %}
+
+            {% endif %}
+
+            {% if corvet %}
+
+                {% include 'tab_select.html' with name='prods' tab_title="Info produits" %}
+
+                {% include 'tab_select.html' with name='vehicle' tab_title="Info Véhicule" %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#corvet" role="tab" aria-controls="corvet" aria-selected="false">
+                        {% trans "Raw Corvet data" %}
+                    </a>
+                </li>
+                {% if log_file.files %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#logs" role="tab" aria-controls="logs" aria-selected="false">
+                            {% trans "Log Files" %}
+                        </a>
+                    </li>
+                {% endif %}
+                {% if 'NAC' in corvet.prods.btel.get_name_display %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#nac" role="tab" aria-selected="false">
+                            {% trans "Info NAC" %}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            {% include 'tab_select.html' with name='xelon' tab_title='Info Xelon' %}
+
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="tab" data-toggle="modal" data-target="#vinModal"
+                   aria-selected="false">
+                    {% trans "VIN Barcode" %}
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block customcss %}
+
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block detail_content %}
+
+    <div class="tab-content mt-3">
+
+        <!-- Detail Xelon -->
+        <div class="tab-pane {% if select == 'xelon' %}active{% endif %}" id="xelon" role="tabpanel"
+             aria-labelledby="xelon-tab">
+
+            {% include 'squalaetp/detail/detail_xelon.html' %}
+
+        </div>
+
+        <!-- Detail IHM -->
+        <div class="tab-pane {% if select == 'ihm' %}active{% endif %}" id="ihm" role="tabpanel"
+             aria-labelledby="ihm-tab">
+
+            {% include 'squalaetp/detail/detail_ihm.html' %}
+
+        </div>
+
+        <!-- Detail produits -->
+        <div class="tab-pane {% if select == 'prods' %}active{% endif %}" id="prods" role="tabpanel"
+             aria-labelledby="prods-tab">
+
+            {% include 'squalaetp/detail/detail_products.html' %}
+
+        </div>
+
+        <!-- Detail Info véhicule -->
+        <div class="tab-pane {% if select == 'vehicle' %}active{% endif %}" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab">
+
+            {% include 'psa/detail/detail_vehicle.html' %}
+
+        </div>
+
+        <!-- Info NAC -->
+        <div class="tab-pane" id="nac" role="tabpanel" aria-labelledby="nac-tab">
+
+            {% include 'psa/format/nac_info_format.html' with firmware=corvet.prods.btel.firmware uin=corvet.electronique_44x %}
+
+        </div>
+
+        <!-- Detail Corvert -->
+        <div class="tab-pane" id="corvet" role="tabpanel" aria-labelledby="corvet-tab">
+
+            {% include 'psa/format/corvet_brut_table_format.html' with obj=dict_corvet %}
+
+        </div>
+
+        <!-- Detail LOGs -->
+        <div class="tab-pane" id="logs" role="tabpanel" aria-labelledby="logs-tab">
+
+            {% include 'squalaetp/detail/detail_logs.html' %}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block custommodal %}
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="vinModal" tabindex="-1" role="dialog" aria-labelledby="vinModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vinModalLabel">VIN produit : {{ xelon.numero_de_dossier }}</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div>
+                        {% if corvet.donnee_marque_commerciale == "0P" %}
+                            {{ corvet.donnee_marque_commerciale|get_corvet:"DON_MAR_COMM" }} {{ corvet.donnee_ligne_de_produit|get_corvet:"DON_LIN_PROD 0" }} {{ corvet.donnee_silhouette|get_corvet:"DON_SIL" }}
+                        {% else %}
+                            {{ corvet.donnee_marque_commerciale|get_corvet:"DON_MAR_COMM" }} {{ corvet.donnee_ligne_de_produit|get_corvet:"DON_LIN_PROD 1" }} {{ corvet.donnee_silhouette|get_corvet:"DON_SIL" }}
+                        {% endif %}                    </div>
+                    <img id="barcode" src="" alt="{{ xelon.vin }}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/JsBarcode/JsBarcode.all.min.js' %}"></script>
+    <script type="text/javascript">
+        JsBarcode("#barcode", "{{ xelon.vin }}", {
+            width: 2.2,
+            height: 100,
+        });
+    </script>
+
+{% endblock %}
+
+{% block modalbtn %}
+
+    <script type="text/javascript">
+        $(function () {
+            // log file buttons
+            $(".log-btn").each(function () {
+                $(this).modalForm({formURL: $(this).data('id'), modalID: "#large-modal"});
+            });
+        });
+    </script>
+
+{% endblock %}

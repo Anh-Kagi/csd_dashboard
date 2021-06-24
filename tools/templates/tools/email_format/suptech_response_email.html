@@ -1,0 +1,28 @@
+{% autoescape off %}
+Bonjour,
+
+Action(s) réalisée(s) :
+{{ suptech.action }}
+
+Statut : {{ suptech.status }}
+Date limite : {{ suptech.deadline|default:"---" }}
+
+Cordialement
+
+{{ user.first_name }} {{ user.last_name }}
+
+-----------
+
+Qui: {{ suptech.created_by.email }}
+===========================================================
+N°XELON: {{ suptech.xelon }}
+===========================================================
+Item: {{ suptech.item }}
+===========================================================
+Temps={{ suptech.time }}
+===========================================================
+{{ suptech.info }}
+===========================================================
+{{ suptech.rmq }}
+======================== E.O.Mail =========================
+{% endautoescape %}
